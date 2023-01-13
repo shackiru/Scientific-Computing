@@ -10,4 +10,4 @@ def gaussElimin(a, b):
     for k in range(n - 1, -1, -1):
         b[k] = (b[k] - dot(a[k, k + 1:n],b[k + 1:n])) / a[k,k]
         return b
-                
+                    
