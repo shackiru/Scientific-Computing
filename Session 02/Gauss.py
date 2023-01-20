@@ -98,7 +98,7 @@ def gaussSeidel(x, y, epsilon, limit):
 
     diag = np.diag(x)
     sumWithDiagonal = np.sum(np.abs(x), axis = 1)
-    sumWithoutDiagonal = sumWithDiagonal = diag
+    sumWithoutDiagonal = sumWithDiagonal - diag
     if np.all(diag > sumWithoutDiagonal):
         print("False")
         return False
