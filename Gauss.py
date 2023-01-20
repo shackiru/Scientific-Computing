@@ -49,7 +49,7 @@ for i in range(1 , limit):
 if isCompleted == False:
     print("No Solution")
 
-    X = [
+CaseX = [
   [
     [-3,9,-6],
     [7,-2,-3],
@@ -83,27 +83,62 @@ if isCompleted == False:
     [-1,-6,-9]
   ]
 ]
-Y=[
-   [0, -6, 5],
-   [12, 9, -6, 11],
-   [19, 12, 5],
-   [8, 3, 5],
-   [3, 6, 9, 21],
-   [3, 9, 12]
-]
+CaseY=[
+       [0, -6, 5],
+       [12, 9, -6, 11],
+       [19, 12, 5],
+       [8, 3, 5],
+       [3, 6, 9, 21],
+       [3, 9, 12]
+    ]
 
 def gaussSeidel(x, y, epsilon, limit):
+    x = np.array(x)
+    y = np.array(y)
+
     diag = np.diag(x)
     sumWithDiagonal = np.sum(np.abs(x), axis = 1)
     sumWithoutDiagonal = sumWithDiagonal = diag
     if np.all(diag > sumWithoutDiagonal):
-        print("True")
-        return True
-    else:
         print("False")
         return False
     
     print(x.shape[0])
     oldValue = np.zeros(x.shape[0])
 
-    diagonal - np.diag(x)
+    diagonal = np.diag(x)
+    x = -x
+    np.fill_diagonal(x, 0)
+
+    print(x)
+
+    for i in range(1, limit):
+        newValue = oldValue
+        for j, row in enumerate(x):
+            newValue[j] = (y[j] + np.dot(row, newValue)) / diagonal[j]
+        
+        distance = np.sqrt(np.dot(newValue - oldValue, newValue - oldValue))
+
+        if distance < epsilon:
+            print("True")
+            return True
+        oldValue = newValue
+    
+    return False
+
+for i, (x, y) in enumerate(zip(CaseX, CaseY)):
+    if gaussSeidel(x, y , 0.01, 15):
+        print("Solution Found!")
+    else:
+        print("Solution Not Found!")
+
+temp = [
+    [-3, 9, -6],
+    [7, -2, -3],
+    [4, 1, -4]
+]
+
+temp = np.array(temp)
+print(temp.shape[0])
+np.fill_diagonal(temp, 0)
+print(temp)
